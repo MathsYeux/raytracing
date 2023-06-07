@@ -48,6 +48,10 @@ public class LancerRaytracer {
         System.out.println("Calcul de l'image :\n - Coordonnées : "+x0+","+y0
                            +"\n - Taille "+ largeur + "x" + hauteur);
         Image image = scene.compute(x0, y0, l, h);
+        /*
+        Image image = scene.compute(x0, y0, l/2, h/2);
+        Image image2 = scene.compute(256, 256, l/2, h/2);
+        */
         Instant fin = Instant.now();
 
         long duree = Duration.between(debut, fin).toMillis();
@@ -56,5 +60,6 @@ public class LancerRaytracer {
         
         // Affichage de l'image calculée
         disp.setImage(image, x0, y0);
+        //disp.setImage(image2, 256, 256);
     }	
 }
