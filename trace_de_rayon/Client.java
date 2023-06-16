@@ -15,8 +15,10 @@ public class Client {
 
     int port = 1099;
     String host = "localhost";
+    int nbDecoupages = 10;
     if (args.length > 3) host = args[3];
     if (args.length > 4) port = Integer.parseInt(args[4]);
+    if (args.length > 5) nbDecoupages = Integer.parseInt(args[5]);
 
     Registry registry = null;
     try {
@@ -64,11 +66,16 @@ public class Client {
             + "\n - Taille " + largeur + "x" + hauteur);
 
     int pas = largeur/10, n = 0;
-    for (int i = 0; i < 10; i++) {
-      for (int j = 0; j < 10; j++) {
+    for (int i = 0; i < nbDecoupages; i++) {
+      for (int j = 0; j < nbDecoupages; j++) {
         if (n == noeuds.size()) n = 0;
-        NotAThread nt = new NotAThread(noeuds.get(n), scene, x0 + i * pas, y0 + j * pas, pas, pas, disp);
-        nt.start();
+        try{
+          NotAThread nt = new NotAThread(noeuds.get(n), scene, x0 + i * pas, y0 + j * pas, pas, pas, disp);
+          nt.start();
+        }catch (Exception e) {
+          System.out.println("Un noeud ne répond plus");
+          noeuds.remove(n);
+        }
       }
     }
     Instant fin = Instant.now();

@@ -18,4 +18,9 @@ public class Distributeur implements ServiceDistributeur {
     public List<Noeud> demanderNeuds() throws RemoteException {
         return nodes;
     }
+
+    @Override
+    public void supprimerClient(Noeud c) throws RemoteException {
+        nodes.remove(c);
+    }
 }

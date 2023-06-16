@@ -14,16 +14,14 @@ public class NodeLauncher {
     try {
       registry = LocateRegistry.getRegistry(host, port);
     } catch (Exception e) {
-      System.out.println("Erreur ici : " + e.getMessage());
-      System.exit(1);
+      throw new RuntimeException("Erreur ici : " + e.getMessage());
     }
 
     try {
       ServiceDistributeur d = (ServiceDistributeur) registry.lookup("distributeur");
       d.enregistrerClient(n);
     } catch (Exception e) {
-      System.out.println("Erreur la : " + e.getMessage());
-      System.exit(1);
+        throw new RuntimeException("Erreur la : " + e.getMessage());
     }
   }
 }
